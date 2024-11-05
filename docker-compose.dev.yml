@@ -1,0 +1,30 @@
+services:
+  psql:
+    container_name: hourai-db
+    image: postgres:alpine
+    env_file:
+      - .env.dev
+    ports:
+      - "2345:5432"
+    volumes:
+      - ./docker-volume/psql:/var/lib/postgresql/data
+    networks:
+      - hourai-net
+    restart: always
+  phoenix:
+    container_name: hourai-backend
+    env_file:
+      - .env.dev
+    build:
+      context: .
+      args:
+        mix_env: dev
+        get_deps: deps.get
+    depends_on:
+      - psql
+    restart: always
+    networks:
+      - hourai-net
+networks:
+  hourai-net:
+    driver: bridge
