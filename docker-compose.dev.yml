@@ -20,6 +20,8 @@ services:
       args:
         mix_env: dev
         get_deps: deps.get
+    ports:
+      - "4000:4000"
     depends_on:
       - psql
     restart: always

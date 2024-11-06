@@ -1,6 +1,8 @@
 # Extend from the official Elixir image
 FROM elixir:alpine
 
+EXPOSE 4000
+
 ARG mix_env
 ARG get_deps
 # Install required libraries on Alpine
